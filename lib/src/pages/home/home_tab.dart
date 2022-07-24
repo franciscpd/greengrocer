@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
-import 'package:greengrocer/src/components/logo.dart';
+import 'package:greengrocer/src/pages/common_widgets/logo.dart';
 import 'package:greengrocer/src/config/app_data.dart' as app_data;
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/item_model.dart';
