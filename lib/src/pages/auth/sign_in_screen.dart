@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import 'package:greengrocer/src/auth/components/custom_divider.dart';
-import 'package:greengrocer/src/auth/components/custom_elevated_button.dart';
-import 'package:greengrocer/src/auth/components/custom_text_field.dart';
-import 'package:greengrocer/src/auth/components/logo.dart';
-import 'package:greengrocer/src/auth/sign_up_screen.dart';
+import 'package:greengrocer/src/pages/auth/components/custom_divider.dart';
+import 'package:greengrocer/src/pages/auth/components/custom_elevated_button.dart';
+import 'package:greengrocer/src/pages/auth/components/custom_text_field.dart';
+import 'package:greengrocer/src/components/logo.dart';
+import 'package:greengrocer/src/pages/auth/sign_up_screen.dart';
+import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -28,7 +29,9 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Logo
-                    const Logo(),
+                    const Logo(
+                      fontSize: 40,
+                    ),
                     //Categorias
                     SizedBox(
                       height: 30,
@@ -83,7 +86,13 @@ class SignInScreen extends StatelessWidget {
                     //Entrar
                     CustomElevatedButton(
                       text: 'Entrar',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (c) {
+                            return const BaseScreen();
+                          }),
+                        );
+                      },
                     ),
                     // Esqueceu a senha
                     Align(
