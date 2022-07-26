@@ -4,7 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:greengrocer/src/pages/auth/components/custom_divider.dart';
 import 'package:greengrocer/src/pages/auth/components/custom_elevated_button.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
-import 'package:greengrocer/src/pages/common_widgets/logo.dart';
+import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/auth/sign_up_screen.dart';
 import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
@@ -29,7 +29,7 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Logo
-                    const Logo(
+                    const AppNameWidget(
                       fontSize: 40,
                     ),
                     //Categorias

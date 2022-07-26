@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:greengrocer/src/config/custom_colors.dart';
 
-class Logo extends StatelessWidget {
+class AppNameWidget extends StatelessWidget {
   final double fontSize;
-  final Color primaryColor;
+  final Color greenTitleColor;
 
-  const Logo({
+  const AppNameWidget({
     Key? key,
-    required this.fontSize,
-    this.primaryColor = Colors.white,
+    this.fontSize = 30,
+    this.greenTitleColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class Logo extends StatelessWidget {
             text: 'Green',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: primaryColor,
+              color: greenTitleColor,
             ),
           ),
           TextSpan(
