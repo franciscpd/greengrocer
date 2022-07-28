@@ -6,9 +6,10 @@ import 'package:greengrocer/src/pages/auth/controllers/auth_controller.dart';
 import 'package:greengrocer/src/routes/app_pages.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
-  Get.lazyPut(() => AuthController());
+  Get.put(AuthController());
 
   runApp(const MyApp());
 }
