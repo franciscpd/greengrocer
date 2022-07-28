@@ -10,7 +10,11 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/routes/app_pages.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({Key? key}) : super(key: key);
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,69 +73,96 @@ class SignInScreen extends StatelessWidget {
                     top: Radius.circular(50),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //email
-                    const CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email',
-                    ),
-                    //senha
-                    const CustomTextField(
-                      icon: Icons.lock,
-                      label: 'Senha',
-                      isSecret: true,
-                    ),
-                    //Entrar
-                    CustomElevatedButton(
-                      text: 'Entrar',
-                      onPressed: () {
-                        Get.offNamed(AppRoutes.home);
-                      },
-                    ),
-                    // Esqueceu a senha
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Esqueceu a senha?',
-                          style: TextStyle(
-                            color: CustomColors.customContrastColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    //Divider
-                    const CustomDivider(
-                      text: 'ou',
-                    ),
-                    // Criar conta
-                    SizedBox(
-                      height: 50,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          side: const BorderSide(
-                            width: 2,
-                            color: Colors.green,
-                          ),
-                        ),
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.signup);
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //email
+                      CustomTextField(
+                        icon: Icons.email,
+                        label: 'Email',
+                        controller: _emailController,
+                        validator: (email) {
+                          if (email == null || email.isEmpty) {
+                            return 'Informe seu email';
+                          }
+
+                          if (!email.isEmail) return 'Informe um email válido';
+
+                          return null;
                         },
-                        child: const Text(
-                          'Criar conta',
-                          style: TextStyle(
-                            fontSize: 18,
+                      ),
+                      //senha
+                      CustomTextField(
+                        icon: Icons.lock,
+                        label: 'Senha',
+                        isSecret: true,
+                        controller: _passwordController,
+                        validator: (password) {
+                          if (password == null || password.isEmpty) {
+                            return 'Informe sua senha';
+                          }
+
+                          return null;
+                        },
+                      ),
+                      //Entrar
+                      CustomElevatedButton(
+                        text: 'Entrar',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            String email = _emailController.text;
+                            String password = _passwordController.text;
+
+                            print('$email e $password');
+                          }
+                          // Get.offNamed(AppRoutes.home);
+                        },
+                      ),
+                      // Esqueceu a senha
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Esqueceu a senha?',
+                            style: TextStyle(
+                              color: CustomColors.customContrastColor,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      //Divider
+                      const CustomDivider(
+                        text: 'ou',
+                      ),
+                      // Criar conta
+                      SizedBox(
+                        height: 50,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            side: const BorderSide(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.signup);
+                          },
+                          child: const Text(
+                            'Criar conta',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
