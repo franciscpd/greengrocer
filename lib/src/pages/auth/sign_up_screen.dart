@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:greengrocer/src/pages/auth/components/custom_elevated_button.dart';
@@ -99,7 +100,7 @@ class SignUpScreen extends StatelessWidget {
                 child: SafeArea(
                   child: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Get.back();
                     },
                     icon: const Icon(Icons.arrow_back),
                     color: Colors.white,
