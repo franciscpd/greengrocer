@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'package:greengrocer/src/pages/auth/components/custom_divider.dart';
 import 'package:greengrocer/src/pages/auth/components/custom_elevated_button.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
@@ -108,16 +109,26 @@ class SignInScreen extends StatelessWidget {
                         },
                       ),
                       //Entrar
-                      CustomElevatedButton(
-                        text: 'Entrar',
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            String email = _emailController.text;
-                            String password = _passwordController.text;
+                      GetX<AuthController>(
+                        builder: (authController) {
+                          return CustomElevatedButton(
+                            text: 'Entrar',
+                            isLoading: authController.isLoading.value,
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
 
-                            print('$email e $password');
-                          }
-                          // Get.offNamed(AppRoutes.home);
+                              if (_formKey.currentState!.validate()) {
+                                String email = _emailController.text;
+                                String password = _passwordController.text;
+
+                                authController.sigIn(
+                                  email: email,
+                                  password: password,
+                                );
+                              }
+                              // Get.offNamed(AppRoutes.home);
+                            },
+                          );
                         },
                       ),
                       // Esqueceu a senha
