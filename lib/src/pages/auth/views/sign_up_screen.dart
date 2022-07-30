@@ -121,6 +121,8 @@ class SignUpScreen extends StatelessWidget {
                                 text: 'Cadastrar Usuário',
                                 isLoading: _authController.isLoading.value,
                                 onPressed: () {
+                                  FocusScope.of(context).unfocus();
+
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
 
