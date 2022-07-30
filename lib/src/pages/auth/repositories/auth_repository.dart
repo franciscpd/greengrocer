@@ -8,8 +8,18 @@ import 'package:greengrocer/src/pages/auth/repositories/auth_errors.dart'
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
 
+  AuthResult handleResponse(Map<dynamic, dynamic> response) {
+    if (response['result'] != null) {
+      final UserModel user = UserModel.fromJson(response['result']);
+
+      return AuthResult.sucess(user);
+    } else {
+      return AuthResult.error(auth_errors.authErrorsString(response['error']));
+    }
+  }
+
   Future<AuthResult> validateToken(String token) async {
-    final result = await _httpManager.request(
+    final response = await _httpManager.request(
       url: Endpoints.validateToken,
       method: HttpMethods.post,
       headers: {
@@ -17,20 +27,14 @@ class AuthRepository {
       },
     );
 
-    if (result['result'] != null) {
-      final UserModel user = UserModel.fromJson(result['result']);
-
-      return AuthResult.sucess(user);
-    } else {
-      return AuthResult.error(auth_errors.authErrorsString(result['error']));
-    }
+    return handleResponse(response);
   }
 
   Future<AuthResult> signIn({
     required String email,
     required String password,
   }) async {
-    final result = await _httpManager.request(
+    final response = await _httpManager.request(
       url: Endpoints.signin,
       method: HttpMethods.post,
       body: {
@@ -39,12 +43,16 @@ class AuthRepository {
       },
     );
 
-    if (result['result'] != null) {
-      final UserModel user = UserModel.fromJson(result['result']);
+    return handleResponse(response);
+  }
 
-      return AuthResult.sucess(user);
-    } else {
-      return AuthResult.error(auth_errors.authErrorsString(result['error']));
-    }
+  Future<AuthResult> signUp(UserModel user) async {
+    final response = await _httpManager.request(
+      url: Endpoints.signup,
+      method: HttpMethods.post,
+      body: user.toJson(),
+    );
+
+    return handleResponse(response);
   }
 }
